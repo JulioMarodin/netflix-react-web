@@ -1,6 +1,9 @@
 import { Grid } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, Error, Input, Wrapper } from "./login.styled";
+import React, { useCallback, useState } from "react";
+import { Wrapper } from "./login.styled";
+import Button from "../../components/button/button";
+import Input from "../../components/input/input";
+import FormError from '../../components/form-error/form-error'
 import * as yup from 'yup';
 
 const Login = () => {
@@ -31,34 +34,32 @@ const Login = () => {
 
         await schema.validate(data)
         setError('')
-      } catch (error: any) {
-        setError(error.errors[0])
+      } catch (error) {
+        if (error instanceof yup.ValidationError) {
+          setError(error.errors[0])
+        }
       }
     },
     [data]
   )
-
-  // useEffect(
-  //   () => console.log(data), [data]
-  // )
-
+  
   return (
     <Wrapper container justifyContent='center' alignContent='center'>
-      <Grid container justifyContent='center' alignContent='center' xs={2}>
+      <Grid item xs={2}>
         <Input
-         type='email' 
-         name='email' 
-         placeholder='E-mail'
-         onChange={handleChange}
+          type='email' 
+          name='email' 
+          placeholder='E-mail'
+          onChange={handleChange}
         />
         <Input
-         type='password' 
-         name='password' 
-         placeholder='Senha'
-         onChange={handleChange}
+          type='password' 
+          name='password' 
+          placeholder='Senha'
+          onChange={handleChange}
         />
         <Button onClick={handleSend}>Entrar</Button>
-        <Error>{error}</Error>
+        <FormError message={error} />
       </Grid>
     </Wrapper>
   )
