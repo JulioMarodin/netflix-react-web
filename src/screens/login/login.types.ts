@@ -1,1 +1,1 @@
-export {}
+export const LOGIN_URL = '/login'
