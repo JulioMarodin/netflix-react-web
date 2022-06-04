@@ -15,9 +15,9 @@ test('Should render login inputs', async () => {
   );
   const emailInput = await screen.findByPlaceholderText('E-mail')
   const passwordInput = await screen.findByPlaceholderText('Senha')
-  const button = await screen.findAllByRole('button')
+  const button = await screen.findByRole('button')
 
   expect(emailInput).toBeInTheDocument();
   expect(passwordInput).toBeInTheDocument();
-  expect(button[0]).toBeInTheDocument();
+  expect(button).toBeInTheDocument();
 })
