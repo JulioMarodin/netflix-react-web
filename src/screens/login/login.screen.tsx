@@ -1,10 +1,13 @@
-import { Grid } from "@mui/material";
-import React, { useCallback, useState } from "react";
-import { Wrapper } from "./login.styled";
-import Button from "../../components/button/button";
-import Input from "../../components/input/input";
-import FormError from '../../components/form-error/form-error'
 import * as yup from 'yup';
+import { Grid } from "@mui/material";
+import { Wrapper } from "./login.styled";
+import Input from "../../components/input/input";
+import Button from "../../components/button/button";
+import userSlice from '../../store/user/user.slice';
+import { useDispatch, useSelector } from 'react-redux';
+import FormError from '../../components/form-error/form-error';
+import { authenticated } from '../../store/user/user.selector';
+import React, { useCallback, useEffect, useState } from "react";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -13,6 +16,10 @@ const Login = () => {
   })
 
   const [error, setError] = useState('')
+
+  const dispatch = useDispatch()
+
+  const userAuthenticated = useSelector(authenticated)
 
   const handleChange = useCallback(
     ({target}: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +41,8 @@ const Login = () => {
 
         await schema.validate(data)
         setError('')
+
+        dispatch(userSlice.actions.authenticated(true))
       } catch (error) {
         if (error instanceof yup.ValidationError) {
           setError(error.errors[0])
@@ -41,6 +50,12 @@ const Login = () => {
       }
     },
     [data]
+  )
+
+  useEffect(
+    () => {
+      console.log(userAuthenticated)
+    }, [userAuthenticated]
   )
   
   return (

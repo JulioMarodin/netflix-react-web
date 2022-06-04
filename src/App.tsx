@@ -7,17 +7,21 @@ import { Route, Routes } from 'react-router-dom';
 import MoviesList from './screens/movies-list/movies-list';
 import { LOGIN_URL } from './screens/login/login.types';
 import { MOVIES_LIST_URL } from './screens/movies-list/movies-list.types';
+import { Provider } from 'react-redux';
+import store from './store/store/store';
 
 function App() {
   return (
     <>
-      <GlobalStyles />
-      <ThemeProvider theme={theme}>
-        <Routes>
-          <Route element={<Login />} path={LOGIN_URL} />
-          <Route element={<MoviesList />} path={MOVIES_LIST_URL} />
-        </Routes>
-      </ThemeProvider>
+      <Provider store={store}>
+        <GlobalStyles />
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route element={<Login />} path={LOGIN_URL} />
+            <Route element={<MoviesList />} path={MOVIES_LIST_URL} />
+          </Routes>
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }
