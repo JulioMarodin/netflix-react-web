@@ -1,9 +1,10 @@
-import { ButtonStyled } from "./button.styled"
+import React from 'react';
+import { ButtonStyled } from './button.styled';
 
-const Button = (props: any) => {
+function Button(props: any) {
   return (
     <ButtonStyled {...props} />
-  )
+  );
 }
 
-export default Button
+export default Button;

@@ -1,9 +1,10 @@
-import { InputStyled } from './input.styled'
+import React from 'react';
+import { InputStyled } from './input.styled';
 
-const Input = (props: any) => {
+function Input(props: any) {
   return (
-    <InputStyled {...props}/>
-  )
+    <InputStyled {...props} />
+  );
 }
 
-export default Input
+export default Input;

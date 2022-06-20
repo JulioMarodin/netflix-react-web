@@ -1,13 +1,14 @@
-import { Error } from "./form-error.styled";
+import React from 'react';
+import { Error } from './form-error.styled';
 
-const FormError = (props: any) => {
-  const { message, ...restProps } = props
+function FormError(props: any) {
+  const { message, ...restProps } = props;
 
   return (
     <Error {...restProps}>
       {message}
     </Error>
-  )
+  );
 }
 
-export default FormError
+export default FormError;
