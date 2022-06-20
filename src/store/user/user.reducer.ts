@@ -1,9 +1,9 @@
 export const authenticated = (state: any, action: any) => {
-  state.authenticated = action.payload
-}
+  state.authenticated = action.payload;
+};
 
 const reducers = {
-  authenticated
-}
+  authenticated,
+};
 
-export default reducers
+export default reducers;
