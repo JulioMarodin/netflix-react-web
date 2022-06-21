@@ -2,12 +2,13 @@ import * as yup from 'yup';
 import { Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useCallback, useEffect, useState } from 'react';
+import Input from 'components/input/input';
+import Button from 'components/button/button';
+import userSlice from 'store/user/user.slice';
+import FormError from 'components/form-error/form-error';
+import { authenticated } from 'store/user/user.selector';
+import { Error } from 'types/yup';
 import { Wrapper } from './login.styled';
-import Input from '../../components/input/input';
-import Button from '../../components/button/button';
-import userSlice from '../../store/user/user.slice';
-import FormError from '../../components/form-error/form-error';
-import { authenticated } from '../../store/user/user.selector';
 
 function Login() {
   const [data, setData] = useState({
@@ -42,11 +43,9 @@ function Login() {
         await schema.validate(data);
         setError('');
 
-        dispatch(userSlice.actions.authenticated(true));
-      } catch (e) {
-        if (e instanceof yup.ValidationError) {
-          setError(e.errors[0]);
-        }
+        dispatch(userSlice.actions.setData({}));
+      } catch (yupError: any) {
+        setError((yupError as Error).errors[0]);
       }
     },
     [data],
