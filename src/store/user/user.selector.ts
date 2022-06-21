@@ -1,1 +1,3 @@
-export const authenticated = (state: any) => state.user.authenticated;
+import { Store } from 'store/store/store.types';
+
+export const authenticated = (state: Store) => !!state.user.data.email;
