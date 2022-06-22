@@ -43,7 +43,7 @@ function Login() {
         await schema.validate(data);
         setError('');
 
-        dispatch(userSlice.actions.setData({}));
+        dispatch(userSlice.actions.authentication(data));
       } catch (yupError: any) {
         setError((yupError as Error).errors[0]);
       }

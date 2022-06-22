@@ -1,2 +1,2 @@
-.eslintrs.json
-/node_modules
+.eslintrc.json
+config-overrides.js

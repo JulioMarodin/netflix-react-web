@@ -6,4 +6,5 @@ export type Data = {
 
 export type User = {
   data: Data
+  error: string
 };
