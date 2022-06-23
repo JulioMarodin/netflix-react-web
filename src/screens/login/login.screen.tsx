@@ -6,8 +6,11 @@ import Input from 'components/input/input';
 import Button from 'components/button/button';
 import userSlice from 'store/user/user.slice';
 import FormError from 'components/form-error/form-error';
-import { authenticated } from 'store/user/user.selector';
+import { errorSelector, tokenSelector } from 'store/user/user.selector';
 import { Error } from 'types/yup';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { MOVIES_LIST_URL } from 'screens/movies-list/movies-list.types';
+import { USER_TOKEN_COOKIE } from 'store/user/user.types';
 import { Wrapper } from './login.styled';
 
 function Login() {
@@ -20,7 +23,10 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  const userAuthenticated = useSelector(authenticated);
+  const token = useSelector(tokenSelector);
+  const userError = useSelector(errorSelector);
+  const navigate = useNavigate();
+  const from = useLocation();
 
   const handleChange = useCallback(
     ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,8 +58,21 @@ function Login() {
   );
 
   useEffect(() => {
-    console.log(userAuthenticated);
-  }, [userAuthenticated]);
+    if (token) {
+      navigate(MOVIES_LIST_URL, {
+        state: { from },
+      });
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const localToken = localStorage.getItem(USER_TOKEN_COOKIE);
+    if (localToken) {
+      dispatch(userSlice.actions.setData({
+        token: localToken,
+      }));
+    }
+  }, []);
 
   return (
     <Wrapper container justifyContent="center" alignContent="center">
@@ -70,8 +89,8 @@ function Login() {
           placeholder="Senha"
           onChange={handleChange}
         />
+        <FormError message={error || userError} />
         <Button onClick={handleSend}>Entrar</Button>
-        <FormError message={error} />
       </Grid>
     </Wrapper>
   );
