@@ -2,6 +2,8 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { AuthPayload } from 'src/services/user/user.type';
 import { Data, User } from './user.types';
 
+const createUser = (_state: User, _action: PayloadAction<AuthPayload>) => {};
+
 const authentication = (_state: User, _action: PayloadAction<AuthPayload>) => {};
 
 const setData = (state: User, action: PayloadAction<Data>) => {
@@ -15,6 +17,7 @@ const setError = (state: User, action: PayloadAction<User['error']>) => {
 const reducers = {
   setData,
   setError,
+  createUser,
   authentication,
 };
 
