@@ -1,3 +1,5 @@
 import { Store } from 'store/store/store.types';
 
-export const authenticated = (state: Store) => !!state.user.data.email;
+export const tokenSelector = (state: Store) => state.user.data.token;
+
+export const errorSelector = (state: Store) => state.user.error;
