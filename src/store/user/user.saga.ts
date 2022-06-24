@@ -1,6 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { AuthPayload, AuthResponse, ErrorMessageEnum } from 'services/user/user.type';
+import {
+  AuthPayload, AuthResponse, ErrorMessageEnum,
+} from 'services/user/user.type';
 import userService from 'services/user/user';
 import { AxiosError } from 'axios';
 import userSlice, { initialState } from './user.slice';
@@ -21,6 +23,8 @@ function* authentication(action: PayloadAction<AuthPayload>) {
   }
 }
 
-export default function* userSaga() {
-  yield takeLatest('user/authentication', authentication);
-}
+const userSaga = [
+  takeLatest('user/authentication', authentication),
+];
+
+export default userSaga;

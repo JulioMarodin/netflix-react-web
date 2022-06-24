@@ -7,10 +7,10 @@ import Guard from 'components/guard/guard';
 import theme from 'themes/main/theme';
 import Login from 'screens/login/login.screen';
 import { GlobalStyles } from 'themes/main/global-styles';
-import MoviesList from 'screens/movies-list/movies-list';
 import { LOGIN_URL } from 'screens/login/login.types';
-import { MOVIES_LIST_URL } from 'screens/movies-list/movies-list.types';
+import { SHOWS_URL } from 'screens/shows/shows.types';
 import store from 'store/store/store';
+import Shows from 'screens/shows/shows';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Routes>
           <Route element={<Login />} path={LOGIN_URL} />
-          <Route element={<Guard><MoviesList /></Guard>} path={MOVIES_LIST_URL} />
+          <Route element={<Guard><Shows /></Guard>} path={SHOWS_URL} />
         </Routes>
       </ThemeProvider>
     </Provider>

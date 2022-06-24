@@ -9,7 +9,7 @@ import FormError from 'components/form-error/form-error';
 import { errorSelector, tokenSelector } from 'store/user/user.selector';
 import { Error } from 'types/yup';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { MOVIES_LIST_URL } from 'screens/movies-list/movies-list.types';
+import { SHOWS_URL } from 'screens/shows/shows.types';
 import { USER_TOKEN_COOKIE } from 'store/user/user.types';
 import { Wrapper } from './login.styled';
 
@@ -59,7 +59,7 @@ function Login() {
 
   useEffect(() => {
     if (token) {
-      navigate(MOVIES_LIST_URL, {
+      navigate(SHOWS_URL, {
         state: { from },
       });
     }
