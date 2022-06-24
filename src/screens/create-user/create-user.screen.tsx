@@ -1,20 +1,20 @@
-import * as yup from 'yup';
-import { Grid } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 import React, { useCallback, useEffect, useState } from 'react';
-import Input from 'components/input/input';
-import Button from 'components/button/button';
-import userSlice from 'store/user/user.slice';
-import FormError from 'components/form-error/form-error';
+import { useDispatch, useSelector } from 'react-redux';
 import { errorSelector, tokenSelector } from 'store/user/user.selector';
+import userSlice from 'store/user/user.slice';
+import * as yup from 'yup';
 import { Error } from 'types/yup';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SHOWS_URL } from 'screens/shows/shows.types';
+import { Wrapper } from 'screens/login/login.styled';
+import { Grid } from '@mui/material';
+import Input from 'components/input/input';
+import FormError from 'components/form-error/form-error';
+import Button from 'components/button/button';
 import { USER_TOKEN_COOKIE } from 'store/user/user.types';
-import { CREATE_USER_URL } from 'screens/create-user/create-user.types';
-import { Wrapper } from './login.styled';
+import { LOGIN_URL } from 'screens/login/login.types';
 
-function Login() {
+function CreateUser() {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -39,27 +39,25 @@ function Login() {
     [setData],
   );
 
-  const handleSend = useCallback(
-    async () => {
-      try {
-        const schema = yup.object().shape({
-          email: yup.string().required().email(),
-          password: yup.string().required(),
-        });
+  const handleSend = useCallback(async () => {
+    try {
+      const schema = yup.object().shape({
+        email: yup.string().required().email(),
+        password: yup.string().required(),
+      });
 
-        await schema.validate(data);
-        setError('');
+      await schema.validate(data);
+      setError('');
 
-        dispatch(userSlice.actions.authentication(data));
-      } catch (yupError: any) {
-        setError((yupError as Error).errors[0]);
-      }
-    },
-    [data],
-  );
+      dispatch(userSlice.actions.createUser(data));
+      navigate(LOGIN_URL);
+    } catch (yupError: any) {
+      setError((yupError as Error).errors[0]);
+    }
+  }, [data]);
 
-  const handleSignup = () => {
-    navigate(CREATE_USER_URL);
+  const handleLogin = () => {
+    navigate(LOGIN_URL);
   };
 
   useEffect(() => {
@@ -95,12 +93,12 @@ function Login() {
           onChange={handleChange}
         />
         <FormError message={error || userError} />
-        <Button onClick={handleSend}>Entrar</Button>
-        <p>Não possui uma conta?</p>
-        <Button onClick={handleSignup}>Cadastrar</Button>
+        <Button onClick={handleSend}>Criar Usuário</Button>
+        <p>Já possui uma conta?</p>
+        <Button onClick={handleLogin}>Login</Button>
       </Grid>
     </Wrapper>
   );
 }
 
-export default Login;
+export default CreateUser;
