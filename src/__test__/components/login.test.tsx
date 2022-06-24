@@ -25,9 +25,17 @@ test('Should render login inputs', async () => {
 
   const emailInput = await screen.findByPlaceholderText('E-mail');
   const passwordInput = await screen.findByPlaceholderText('Senha');
-  const button = await screen.findByRole('button');
+  const loginButton = await screen.findByRole('button', {
+    name: /entrar/i,
+  });
+  const createUserText = await screen.findByText('Não possui uma conta?');
+  const createUserButton = await screen.findByRole('button', {
+    name: /cadastrar/i,
+  });
 
   expect(emailInput).toBeInTheDocument();
   expect(passwordInput).toBeInTheDocument();
-  expect(button).toBeInTheDocument();
+  expect(loginButton).toBeInTheDocument();
+  expect(createUserText).toBeInTheDocument();
+  expect(createUserButton).toBeInTheDocument();
 });
