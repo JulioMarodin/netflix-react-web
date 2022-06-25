@@ -13,6 +13,8 @@ import store from 'store/store/store';
 import Shows from 'screens/shows/shows';
 import CreateUser from 'screens/create-user/create-user.screen';
 import { CREATE_USER_URL } from 'screens/create-user/create-user.types';
+import Show from 'screens/show/show';
+import { SHOW_URL } from 'screens/show/show.types';
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
         <Routes>
           <Route element={<Login />} path={LOGIN_URL} />
           <Route element={<CreateUser />} path={CREATE_USER_URL} />
+          <Route element={<Guard><Show /></Guard>} path={SHOW_URL} />
           <Route element={<Guard><Shows /></Guard>} path={SHOWS_URL} />
         </Routes>
       </ThemeProvider>

@@ -1,7 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-  root, button {
+  body {
     font-family: 'Open Sans', sans-serif;
+    background-color: #1A1A1A;
   }
 `;

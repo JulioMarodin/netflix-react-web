@@ -36,9 +36,17 @@ function* authentication(action: PayloadAction<AuthPayload>) {
   }
 }
 
+function* logoff() {
+  const { data } = userSlice.getInitialState();
+
+  yield put(userSlice.actions.setData(data));
+  localStorage.removeItem(USER_TOKEN_COOKIE);
+}
+
 const userSaga = [
   takeLatest('user/authentication', authentication),
   takeLatest('user/createUser', createUser),
+  takeLatest('user/logoff', logoff),
 ];
 
 export default userSaga;
