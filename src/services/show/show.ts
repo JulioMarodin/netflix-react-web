@@ -1,17 +1,17 @@
 import axiosInstance from 'modules/axios/axios';
-import { useSelector } from 'react-redux';
-import { List } from 'store/shows/shows.type';
-import { tokenSelector } from 'store/user/user.selector';
+import { Props } from './show.types';
 
-export const showsService = () => {
-  const token = useSelector(tokenSelector);
+export const showsService = ({ token } : Props) => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
 
-  const getList = () => axiosInstance.get<List>('/shows', { headers });
+  const getList = () => axiosInstance.get('/shows', { headers });
+
+  const getMyList = () => axiosInstance.get('/list', { headers });
 
   return {
     getList,
+    getMyList,
   };
 };

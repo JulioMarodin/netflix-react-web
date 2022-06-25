@@ -3,7 +3,8 @@ import reducers from './shows.reducer';
 
 const initialState = {
   data: {
-    list: [],
+    myList: [],
+    list: {},
   },
   settings: {
     loading: false,
