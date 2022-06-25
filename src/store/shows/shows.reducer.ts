@@ -1,11 +1,17 @@
 import {
-  GetList, SetData, SetError, SetSettings,
+  GetList, SetError, SetList, SetMyList, SetSettings,
 } from './shows.type';
 
 const getList: GetList = (_state, _action) => {};
 
-const setData: SetData = (state, action) => {
-  state.data = action.payload;
+const getMyList: GetList = (_state, _action) => {};
+
+const setList: SetList = (state, action) => {
+  state.data.list = action.payload;
+};
+
+const setMyList: SetMyList = (state, action) => {
+  state.data.myList = action.payload;
 };
 
 const setSettings: SetSettings = (state, action) => {
@@ -18,8 +24,10 @@ const setError: SetError = (state, action) => {
 
 const reducers = {
   getList,
-  setData,
+  setList,
   setError,
+  setMyList,
+  getMyList,
   setSettings,
 };
 

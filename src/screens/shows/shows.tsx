@@ -1,23 +1,44 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listSelector } from 'store/shows/shows.selector';
 import showSlice from 'store/shows/shows.slice';
+import { Container } from '@mui/material';
+import ShowsList from 'components/shows-list/shows-list';
+import { listSelector, myListSelector } from 'store/shows/shows.selector';
+import Header from 'components/header/header';
 
-function Shows() {
-  const list = useSelector(listSelector);
+export default function Shows() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(showSlice.actions.getList());
-  }, []);
+  const list = useSelector(listSelector);
+  const myList = useSelector(myListSelector);
+  const movies = list.MOVIE;
+  const tvShows = list.TV_SHOWS;
 
-  useEffect(() => {
-    console.log(list);
-  }, [list]);
+  useEffect(
+    () => {
+      dispatch(showSlice.actions.getList());
+      dispatch(showSlice.actions.getMyList());
+    },
+    [],
+  );
 
   return (
-    <p>Hello World!</p>
+    <>
+      <Header />
+      <Container>
+        <ShowsList
+          autoplay
+          width="95%"
+          height="560px"
+          arrows={false}
+          shows={myList}
+          slidesToShow={1}
+          autoplaySpeed={2400}
+        />
+        <ShowsList shows={myList} title="Minha Lista" />
+        { movies && <ShowsList shows={movies} title="Filmes" /> }
+        { tvShows && <ShowsList shows={tvShows} title="Séries" /> }
+      </Container>
+    </>
   );
 }
-
-export default Shows;
